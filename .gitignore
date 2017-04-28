@@ -1,0 +1,5 @@
+# ignore all dot files
+.*
+
+# add a pattern to .gitignore itself
+!/.gitignore
