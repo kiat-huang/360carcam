@@ -9,8 +9,25 @@
 #
 # My hardware:
 # Stepper Motor: 28BJY-48
-# Stepper Motor Driver Board:ULN2003
-# Raspberry Pi B
+# Stepper Motor Driver Board: ULN2003
+# Bought here: http://www.ebay.fr/itm/292003588929?_trksid=p2057872.m2749.l2649
+# Screenshot (in case the item doesn't exist there any more): http://goo.gl/reIvWL
+# Raspberry Pi B+ v1.2 with 40 pins
+
+# Features
+#
+# 1. Makes the motor spin at a certain speed until user interrupts CTRL-C
+# 2. On interrupt, resets the GPIOs to LOW
+# 
+
+# Notes
+# 1. Code working with python3.4 on Rasbian
+#    pi@raspberrypi:~ $ uname -a && cat /etc/debian_version
+#    Linux raspberrypi 4.4.50+ #970 Mon Feb 20 19:12:50 GMT 2017 armv6l GNU/Linux
+#    8.0
+# 2. Adapt to your own GPIO pins
+# 3. Hardware worked with 3.3V (accidentally) as well as 5V as intended
+# 4. Works when the motor spins and the LEDs flash on the board matching Seq
 
 # Import required libraries
 import sys
