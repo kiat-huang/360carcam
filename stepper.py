@@ -7,18 +7,24 @@
 # Based on
 # http://www.raspberrypi-spy.co.uk/2012/07/stepper-motor-control-in-python/
 #
-# My hardware:
-# Stepper Motor: 28BJY-48
-# Stepper Motor Driver Board: ULN2003
-# Bought here: http://www.ebay.fr/itm/292003588929?_trksid=p2057872.m2749.l2649
-# Screenshot (in case the item doesn't exist there any more): http://goo.gl/reIvWL
-# Raspberry Pi B+ v1.2 with 40 pins
+# My hardware
+# 1. Stepper Motor: 28BJY-48
+# 2. Stepper Motor Driver Board: ULN2003
+#    Bought here: http://www.ebay.fr/itm/292003588929?_trksid=p2057872.m2749.l2649
+#    Screenshot (in case the item doesn't exist there any more): http://goo.gl/reIvWL
+# . Raspberry Pi B+ v1.2 with 40 pins
+
+# Usage
+#
+# $0          # clockwise, each step is 0.01 seconds
+# $0 500      # clockwise, each step is 0.5  seconds
+# $0 500 -1   # counter-clockwise, each step is 0.5 seconds
 
 # Features
 #
 # 1. Makes the motor spin at a certain speed until user interrupts CTRL-C
 # 2. On interrupt, resets the GPIOs to LOW
-# 
+#
 
 # Notes
 # 1. Code working with python3.4 on Rasbian
@@ -59,14 +65,20 @@ Seq2 = [[1, 0, 0, 0],
 
 Seq = Seq2
 StepCount = len(Seq)
-StepDir = 1 # Set to 1 or 2 for clockwise
-            # Set to -1 or -2 for anti-clockwise
 
 # Read wait time from the command line
 if len(sys.argv)>1:
     WaitTime = int(sys.argv[1])/float(1000)
 else:
     WaitTime = 10/float(1000)
+
+# Read direction, only if wait time is also set
+# Set to 1 or 2 for clockwise
+# Set to -1 or -2 for anti-clockwise
+if len(sys.argv)>2:
+    StepDir = int(sys.argv[2])
+else:
+    StepDir = 1
 
 # Initialize variables
 StepCounter = 0
