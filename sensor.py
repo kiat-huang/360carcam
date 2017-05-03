@@ -35,15 +35,17 @@ from gpiozero import MotionSensor
 import time
 import RPi.GPIO as GPIO
 
+GPIO.setmode(GPIO.BCM)
+
 delay = 1000/float(1000)
-pir = MotionSensor(4,queue_len=4,sample_rate=100,threshold=0.5)
+led = 24
+pir = MotionSensor(4,queue_len=4,sample_rate=10,threshold=0.8)
 # pir = MotionSensor(4)
 count = 0
 
-led = 24
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
+# GPIO.setwarnings(False)
 GPIO.setup(led,GPIO.OUT)
+
 # print ("LED on")
 # print ("LED off")
 
