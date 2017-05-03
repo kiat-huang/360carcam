@@ -3,3 +3,6 @@
 
 # add a pattern to .gitignore itself
 !/.gitignore
+
+# ignore compiled python code
+*.pyc
