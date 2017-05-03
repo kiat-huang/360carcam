@@ -38,7 +38,7 @@ class Motor(object):
         """Set the turn speed in RPM."""
         self._rpm = rpm
         # T is the amount of time to stop between signals
-        self._T = (60.0 / rpm) / self.steps_per_rev
+        self._T = (60.0 // rpm) / self.steps_per_rev
 
     # This means you can set "rpm" as if it is an attribute and
     # behind the scenes it sets the _T attribute
@@ -47,22 +47,22 @@ class Motor(object):
     def move_to(self, angle):
         """Take the shortest route to a particular angle (degrees)."""
         # Make sure there is a 1:1 mapping between angle and stepper angle
-        target_step_angle = 8 * (int(angle / self.deg_per_step) / 8)
+        target_step_angle = 8 * (int(angle // self.deg_per_step) // 8)
         steps = target_step_angle - self.step_angle
         steps = (steps % self.steps_per_rev)
-        if steps > self.steps_per_rev / 2:
+        if steps > self.steps_per_rev // 2:
             steps -= self.steps_per_rev
-            print "moving " + `steps` + " steps"
+            print ("moving ",steps," steps")
             if self.mode == 2:
-                self._move_acw_2(-steps / 8)
+                self._move_acw_2(-steps // 8)
             else:
-                self._move_acw_3(-steps / 8)
+                self._move_acw_3(-steps // 8)
         else:
-            print "moving " + `steps` + " steps"
+            print ("moving ",steps," steps")
             if self.mode == 2:
-                self._move_cw_2(steps / 8)
+                self._move_cw_2(steps // 8)
             else:
-                self._move_cw_3(steps / 8)
+                self._move_cw_3(steps // 8)
         self.step_angle = target_step_angle
 
     def __clear(self):
