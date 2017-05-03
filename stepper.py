@@ -45,14 +45,14 @@ import RPi.GPIO as GPIO
 # GPIO19,GPIO16,GPIO26,GPIO20
 StepPins = [19,16,26,20]
 
-# Define simple sequence
+# Define simple sequence : 4 step seq so 32 x 64 = 2048 steps/rev
 Seq1 = [[1,0,0,0],
         [0,1,0,0],
         [0,0,1,0],
         [0,0,0,1]]
 
 
-# Define advanced sequence
+# Define advanced sequence : 8 step seq so 64 x 64 = 4096 steps/rev
 Seq2 = [[1, 0, 0, 0],
        [1, 1, 0, 0],
        [0, 1, 0, 0],
@@ -63,7 +63,7 @@ Seq2 = [[1, 0, 0, 0],
        [1, 0, 0, 1]]
 
 
-Seq = Seq2
+Seq = Seq1
 StepCount = len(Seq)
 
 # Read wait time from the command line
@@ -82,7 +82,7 @@ else:
 
 # Initialize variables
 StepCounter = 0
-
+TotalSteps = 0
 # Start main loop
 try:
     while True:
@@ -114,11 +114,16 @@ try:
         if (StepCounter < 0):
             StepCounter = StepCount + StepDir
 
+        # Count total steps
+        TotalSteps += 1
+
         # Wait before moving on
         time.sleep(WaitTime)
 
+
 except KeyboardInterrupt:
     GPIO.cleanup()
+    print("Total Steps = ", TotalSteps)
 
 except:
     GPIO.cleanup()
